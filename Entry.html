@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Entry</title>
+	<style>
+		body {
+			font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, "sans-serif";
+			font-size: 11pt;
+		  	margin: 10px;
+		  	padding: 10px;
+		}
+		input[type="submit"]{
+			background-color: #2E2E2E;
+			color: #FFFFFF;
+			padding: 5px;
+		}
+		
+	</style>
+</head>
+<script>
+	function linkage (ta){
+		const t = document.getElementById(ta).value;
+		const ar = t.split(" ");
+		lt = "";
+		ar.forEach(addPsLink);
+		document.getElementById('lta').innerHTML = lt + "<br><hr>";
+	};
+	function addPsLink (ve){
+		let lve = removePunc(ve);
+		lve = lve.replace(/[0-9]/g, '');
+		let b = "<a href='http://www.perseus.tufts.edu/hopper/morph?la=greek&l=" + lve + "&can=" + lve + "0' target='PS'>" + ve + "</a> ";
+		lt += b;
+	};
+	function removePunc(input) {
+		var punctuation = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~’';
+		let letters = punctuation.split("");
+
+		for (let char of letters){
+			input = input.split(char).join('');
+		}
+		return input;
+	};
+</script>
+<body>
+	<table border="0px" style="margin: 0px; padding: 0px; width: 100%">
+  		<tbody>
+			<tr><td id="lta"></td></tr>
+    		<tr><td>
+      			<label for="textarea">Enter the ancient Greek text*</label>
+				<p><textarea name="textarea" id="textarea" rows=20 style="padding: 10px; margin: 0px; width: 100%"></textarea></p>
+				</td>
+   			</tr>
+	  		<tr align="right">
+				<td>
+		  		<input class="button" type="submit" id="submit" value="Link it" onClick="linkage('textarea')">
+				</td>
+	  		</tr>
+			<tr><td><hr>Each word you enter on this page links and opens in Perseus' Greek Word Study Tool.<br><br>[*] If you do not have an ancient Greek text but only an image file, you can convert images into text with <a href="https://dcthree.github.io/antigrapheus/" target="new">Antigrapheus: Online OCR for Ancient Greek and Latin</a></td></tr>
+  		</tbody>
+	</table>
+</body>
+</html>
