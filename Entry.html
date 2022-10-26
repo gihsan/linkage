@@ -32,7 +32,7 @@
 	function addPsLink (ve){
 		let lve = removePunc(ve);
 		lve = lve.replace(/[0-9]/g, '');
-		let url = "https://www.perseus.tufts.edu/hopper/morph?la=greek&l=" + lve + "&can=" + lve + "0";
+		url = "https://www.perseus.tufts.edu/hopper/morph?la=greek&l=" + lve + "&can=" + lve + "0";
 		if(prior != ""){
 			url += "&prior=" + prior;
 		}
