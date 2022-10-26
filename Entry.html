@@ -19,18 +19,29 @@
 	</style>
 </head>
 <script>
-	function linkage (ta){
-		const t = document.getElementById(ta).value;
+	function linkage (){
+		const t = document.getElementById("textarea").value;
 		const ar = t.split(" ");
+		purl = document.getElementById("Perseus").value;
+		p = "&d=" + decodeURIComponent(purl.split("doc=").pop()) + "&i=1";
 		lt = "";
+		prior = "";
 		ar.forEach(addPsLink);
 		document.getElementById('lta').innerHTML = lt + "<br><hr>";
 	};
 	function addPsLink (ve){
 		let lve = removePunc(ve);
 		lve = lve.replace(/[0-9]/g, '');
-		let b = "<a href='https://www.perseus.tufts.edu/hopper/morph?la=greek&l=" + lve + "&can=" + lve + "0' target='PS'>" + ve + "</a> ";
+		let url = "http://www.perseus.tufts.edu/hopper/morph?la=greek&l=" + lve + "&can=" + lve + "0";
+		if(prior != ""){
+			url += "&prior=" + prior;
+		}
+		if(p != ""){
+			url += p;
+		}
+		let b = "<a href='" + url +"' target='PS'>" + ve + "</a> ";
 		lt += b;
+		prior = lve;
 	};
 	function removePunc(input) {
 		var punctuation = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~’';
@@ -47,16 +58,27 @@
   		<tbody>
 			<tr><td id="lta"></td></tr>
     		<tr><td>
-      			<label for="textarea">Enter the ancient Greek text*</label>
+      			<label for="textarea">Enter the ancient Greek text<sup>1</sup></label>
 				<p><textarea name="textarea" id="textarea" rows=20 style="padding: 10px; margin: 0px; width: 100%"></textarea></p>
 				</td>
    			</tr>
+			<tr>
+				<td>
+					<label for="Perseus">Perseus URL (optional)<sup>2</sup></label>
+					<p><textarea name="Perseus" id="Perseus" rows="2" style="padding: 10px; margin: 0px; width: 100%"></textarea></p>
+				</td>
+			</tr>
 	  		<tr align="right">
 				<td>
-		  		<input class="button" type="submit" id="submit" value="Link it" onClick="linkage('textarea')">
+		  		<input class="button" type="submit" id="submit" value="Link it" onClick="linkage()">
 				</td>
 	  		</tr>
-			<tr><td><hr>Each word you enter on this page links and opens in <a href="https://www.perseus.tufts.edu/" target="new">Perseus'</a> <a href="https://www.perseus.tufts.edu/hopper/morph" target="new">Greek Word Study Tool</a>.<br><br>[*] If you do not have an ancient Greek text but only an image file, you can convert images into text with <a href="https://dcthree.github.io/antigrapheus" target="new">Antigrapheus: Online OCR for Ancient Greek and Latin</a></td></tr>
+			<tr>
+				<td><br><br><br>
+					Each word you enter on this page links and opens in <a href="https://www.perseus.tufts.edu/" target="new">Perseus'</a> <a href="https://www.perseus.tufts.edu/hopper/morph" target="new">Greek Word Study Tool</a>.<br><br><sup><hr>[1] If you do not have an ancient Greek text but only an image file, you can convert images into text with <a href="https://dcthree.github.io/antigrapheus/" target="new">Antigrapheus: Online OCR for Ancient Greek and Latin</a><br><br>
+					[2] If you copied the text from the Perseus website, please copy and paste the URL line from your browser into this box so that <b>the contextual meaning of the term</b> is also displayed.</sup>
+				</td>
+			</tr>
   		</tbody>
 	</table>
 </body>
