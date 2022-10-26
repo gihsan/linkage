@@ -20,7 +20,8 @@
 </head>
 <script>
 	function linkage (){
-		const t = document.getElementById("textarea").value;
+		t = document.getElementById("textarea").value;
+		t = t.replace(/\r?\n/g, '<br/>');
 		const ar = t.split(" ");
 		purl = document.getElementById("Perseus").value;
 		p = "&d=" + decodeURIComponent(purl.split("doc=").pop()) + "&i=1";
