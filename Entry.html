@@ -21,7 +21,7 @@
 <script>
 	function linkage (){
 		t = document.getElementById("textarea").value;
-		t = t.replace(/\r?\n/g, '<br/>');
+		t = t.replace(/\r?\n/g, ' <br/> ');
 		const ar = t.split(" ");
 		purl = document.getElementById("Perseus").value;
 		p = "&d=" + decodeURIComponent(purl.split("doc=").pop()) + "&i=1";
@@ -31,18 +31,22 @@
 		document.getElementById('lta').innerHTML = lt + "<br><hr>";
 	};
 	function addPsLink (ve){
-		let lve = removePunc(ve);
-		lve = lve.replace(/[0-9]/g, '');
-		url = "https://www.perseus.tufts.edu/hopper/morph?la=greek&l=" + lve + "&can=" + lve + "0";
-		if(prior != ""){
-			url += "&prior=" + prior;
+		if(ve == "<br/>"){
+			lt += ve;
+		}else{
+			let lve = removePunc(ve);
+			lve = lve.replace(/[0-9]/g, '');
+			url = "https://www.perseus.tufts.edu/hopper/morph?la=greek&l=" + lve + "&can=" + lve + "0";
+			if(prior != ""){
+				url += "&prior=" + prior;
+			}
+			if(p != ""){
+				url += p;
+			}
+			let b = "<a href='" + url +"' target='PS'>" + ve + "</a> ";
+			lt += b;
+			prior = lve;
 		}
-		if(p != ""){
-			url += p;
-		}
-		let b = "<a href='" + url +"' target='PS'>" + ve + "</a> ";
-		lt += b;
-		prior = lve;
 	};
 	function removePunc(input) {
 		var punctuation = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~’';
