@@ -24,7 +24,11 @@
 		t = t.replace(/\r?\n/g, ' <br/> ');
 		const ar = t.split(" ");
 		purl = document.getElementById("Perseus").value;
-		p = "&d=" + decodeURIComponent(purl.split("doc=").pop()) + "&i=1";
+		if(purl != ""){
+			p = "&d=" + decodeURIComponent(purl.split("doc=").pop()) + "&i=1";
+		}else{
+			p = "";
+		}
 		lt = "";
 		prior = "";
 		ar.forEach(addPsLink);
@@ -40,7 +44,7 @@
 			if(prior != ""){
 				url += "&prior=" + prior;
 			}
-			if(p != "&"){
+			if(p != ""){
 				url += p;
 			}
 			let b = "<a href='" + url +"' target='morph'>" + ve + "</a> ";
